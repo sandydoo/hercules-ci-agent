@@ -10,6 +10,7 @@ module Hercules.CNix.Util
     triggerInterrupt,
     installDefaultSigINTHandler,
     createInterruptCallback,
+    restoreProcessContext,
   )
 where
 
@@ -41,6 +42,12 @@ triggerInterrupt :: IO ()
 triggerInterrupt =
   [C.throwBlock| void {
     nix::triggerInterrupt();
+  } |]
+
+restoreProcessContext :: IO ()
+restoreProcessContext =
+  [C.throwBlock| void {
+    nix::restoreProcessContext();
   } |]
 
 installDefaultSigINTHandler :: IO ()
